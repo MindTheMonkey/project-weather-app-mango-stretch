@@ -38,7 +38,6 @@ const displayWeather = (weatherData) => {
   sunsetElement.innerHTML = `sunset ${sunsetTime}`;
   temperatureElement.innerHTML = `${temperatureCelsius}°C`;
 
-
   weatherStatusToday(weatherStatus);
 }
 

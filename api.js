@@ -14,20 +14,28 @@ const fetchWeatherReport = (reportType, city, country) => {
   const apiCollection = ["weather","forecast"].includes(reportType) ? reportType : false
   if (!apiCollection) {
     console.log("Incorrect report type");
-    return false
+    return Promise.reject("Incorrect report type");
   }
 
   // We put together the apiUrl, the apiCollection and the queryString to form the complete fetch url
   const url = `${weatherApp.apiUrl}${apiCollection}?${queryString}`;
-  console.log(url)
+
   // We return the fetch call. By doing this fetchWeather will first return a promise and later the data.
-  // TODO - We need to add some error handling
+
   return fetch(url)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then((data) => {
-      console.log(data)
       return data
     })
+    .catch((error) => {
+      console.error("Fetching data failed", error);
+      return false;
+    });
 }
 
 const fetchWeatherData = async (city, country) => {
@@ -36,6 +44,11 @@ const fetchWeatherData = async (city, country) => {
     fetchWeatherReport("weather", city, country),
     fetchWeatherReport("forecast", city, country)
   ]);
+
+  if (!weatherData || !forecastData) {
+    console.error("Failed fetching data");
+    return false;
+  }
 
   // once completed we return an object consisting of city, country, current, forecast
   return {
