@@ -8,6 +8,9 @@ const todaysDescription = document.getElementById ("todaysDescription");
 const statusElement = document.getElementById ("status");
 const temperatureElement = document.getElementById ("temperature");
 const body = document.getElementById("body");
+const searchButton = document.getElementById("searchButton");
+const searchText = document.getElementById("searchText");
+const searchMessage = document.getElementById("searchMessage");
 
 // We save our config settings in the weatherApp object
 const weatherApp = {
@@ -19,10 +22,23 @@ const weatherApp = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetchWeatherData("Stockholm", "Sweden")
+  searchLocation("Stockholm, Sweden")
     .then((data) => {
-      weatherApp.data = data;
-      displayWeather(data);
-      displayforecast(data.forecast); // Display the forecast data
+      if (data.success) {
+        weatherApp.data = data;
+        displayWeather(data);
+        displayforecast(data.forecast); // Display the forecast data
+      }
+    });
+});
+
+searchButton.addEventListener("click", function () {
+  searchLocation(searchText.value)
+    .then((data) => {
+      if (data.success) {
+        weatherApp.data = data;
+        displayWeather(data);
+        displayforecast(data.forecast); // Display the forecast data
+      }
     });
 });
