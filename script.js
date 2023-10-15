@@ -8,7 +8,7 @@ const todaysDescription = document.getElementById ("todaysDescription");
 const statusElement = document.getElementById ("status");
 const temperatureElement = document.getElementById ("temperature");
 const body = document.getElementById("body");
-const searchButton = document.getElementById("searchButton");
+const searchForm = document.getElementById("searchForm");
 const searchText = document.getElementById("searchText");
 const searchMessage = document.getElementById("searchMessage");
 
@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-searchButton.addEventListener("click", function () {
+searchForm.addEventListener("submit", function (event) {
+  event.preventDefault();
   searchLocation(searchText.value)
     .then((data) => {
       if (data.success) {
