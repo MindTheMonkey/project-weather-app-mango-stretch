@@ -1,0 +1,81 @@
+/*add specific font to description*/
+.todaysDescription {
+    font-size: 37px;
+    font-weight: 700;
+    line-height: 45.1px;
+}
+/*Fix overview + forecast font weight*/
+.overview {
+    font-size: 21px;
+    line-height: 25.6px;
+}
+.forecast {
+    font-size: 21px;
+    line-height: 36px;
+}
+
+/*adding padding over img*/
+
+.img {
+    padding-top: 204.43px
+}
+/* Change background and text-color depending on weather status */
+
+body {
+    background-color: #ffffff; 
+    font-family: Montserrat;
+    margin: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rainy {
+    background-color: #BDE8FA; 
+    color: #164A68;
+
+}
+
+.cloudy {
+    background-color: #F4F7F8; 
+    color: #F47775;
+}
+
+.sunny {
+    background-color: #F7E9B9;
+    color: #2A5510;
+}
+/*add blank line*/
+#summary {
+    display: flex;
+    align-items: center;
+  }
+  
+  #status {
+    border-right: 1px solid #000; /* Adjust the color and thickness as needed */
+    padding-right: 10px; /* Adjust the spacing between the word and the line as needed */
+    margin-right: 10px; /* Adjust the spacing between the line and the temperature as needed */
+  }
+
+  /*search-box*/
+#searchBox {
+    justify-content: center;
+}
+  #searchText {
+    height: 20px;
+    width: 200px;
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 4px;
+    margin: 30px 0;
+  }
+#searchButton {
+    height: 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 4px 8px;
+    border: none;
+}
+#forecast-weather {
+    float: right;
+}
