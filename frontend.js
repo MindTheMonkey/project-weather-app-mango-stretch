@@ -7,15 +7,13 @@ const displayWeather = (weatherData) => {
   }
   // We connect weatherContainer to the DomObject the weather container.
   const timezoneOffset = weatherData.timezone;
-  const weatherContainer = document.getElementById("weather");
+
   const sunriseTime = convertTimestampToTime(weatherData.current.sys.sunrise, timezoneOffset);
   const sunsetTime = convertTimestampToTime(weatherData.current.sys.sunset, timezoneOffset);
   const temperatureCelsius = Math.round(weatherData.current.main.temp);
   const weatherStatus = weatherData.current.weather[0].main;
-  const icon = document.getElementById ("icon")
-  const todaysDescription = document.getElementById ("todaysDescription")
+
   const weatherStatusToday = (weatherStatus) => {
-    const body = document.getElementById("body");
     body.classList.remove(...body.classList)
     if (weatherStatus === "Clouds") {
       body.classList.add ("cloudy")
@@ -30,23 +28,13 @@ const displayWeather = (weatherData) => {
       todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`
     }
   }
+  statusElement.innerHTML = weatherStatus;
+  sunriseElement.innerHTML = `Sunrise is at: ${sunriseTime}`;
+  sunsetElement.innerHTML = sunsetTime;
+  temperatureElement.innerHTML = temperatureCelsius;
 
-  // Example data just to render something
-  weatherContainer.innerHTML = `
-    <div class="overview"
-      <p>Sunrise is at ${sunriseTime}</p>
-      <p>Sunset is at ${sunsetTime}</p>
-      <p>It is ${weatherStatus} outside today!</p>
-      <p> The temperature is ${temperatureCelsius} °C</p>
-    </div>
-    <div class="header">
-      <h1>Welcome to ${weatherData.city}. Here's what the weather will be like this week:</h1>
-    </div>
-    <div id="forecast">
-    </div>
-    <div class="search">
-    </div>
-  `;
+
+  weatherStatusToday(weatherStatus);
 }
 
 const displayforecast = (forecastData) => {
@@ -55,8 +43,6 @@ const displayforecast = (forecastData) => {
     console.error("Invalid forecast data");
     return;
   }
-
-  const forecastContainer = document.getElementById("forecast");
 
   // We grab the timezone offset from the data and declare a const
   const timezoneOffset = forecastData.city.timezone;
@@ -97,8 +83,8 @@ const displayforecast = (forecastData) => {
     const temperature = Math.round(forecast.main.temp);
 
     const forecastRow = document.createElement("div");
-    const forecastWeekday = document.createElement("p");
-    const forecastTemperature = document.createElement("p");
+    const forecastWeekday = document.createElement("span");
+    const forecastTemperature = document.createElement("span");
 
     forecastRow.classList.add("forecast-row");
     forecastTemperature.classList.add("forecast-temperature");
