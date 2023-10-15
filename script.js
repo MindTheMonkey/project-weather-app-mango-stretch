@@ -9,8 +9,6 @@ const statusElement = document.getElementById ("status");
 const temperatureElement = document.getElementById ("temperature");
 const body = document.getElementById("body");
 
-
-
 // We save our config settings in the weatherApp object
 const weatherApp = {
   apiKey: "b519b073de061051721cf997e13c4842",
@@ -18,7 +16,7 @@ const weatherApp = {
   units: "metric",
   // we use this to store our weatherData globally for testing
   data: {}
-}
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchWeatherData("Stockholm", "Sweden")

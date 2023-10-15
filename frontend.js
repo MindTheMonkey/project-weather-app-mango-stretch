@@ -14,22 +14,22 @@ const displayWeather = (weatherData) => {
   const weatherStatus = weatherData.current.weather[0].main;
 
   const weatherStatusToday = (weatherStatus) => {
-    body.classList.remove(...body.classList)
+    body.classList.remove(...body.classList);
     if (weatherStatus === "Clouds") {
-      body.classList.add ("cloudy")
-      iconElement.src = "icons/cloud.png"
+      body.classList.add ("cloudy");
+      iconElement.src = "icons/cloud.png";
       todaysDescription.innerHTML = `Light a fire and get cosy. ${weatherData.city} is looking grey today.`
     } else if (weatherStatus === "Rain") {
-      body.classList.add ("rainy")
-      iconElement.src = "icons/rain.png"
-      todaysDescription.innerHTML = `Don't forget your umbrella. It's wet in ${weatherData.city} today.`
+      body.classList.add ("rainy");
+      iconElement.src = "icons/rain.png";
+      todaysDescription.innerHTML = `Don't forget your umbrella. It's wet in ${weatherData.city} today.`;
     } else if (weatherStatus === "Clear") {
-      body.classList.add ("sunny")
-      iconElement.src = "icons/sunny.png"
-      todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`
+      body.classList.add ("sunny");
+      iconElement.src = "icons/sunny.png";
+      todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`;
     } else {
-      body.classList.add("unknown")
-      icon.src = ""
+      body.classList.add("unknown");
+      icon.src = "";
       description.innerHTML = `We are sorry, we cannot provide you with information on the weather in ${weatherData.city}!`
     }
   }
@@ -73,10 +73,10 @@ const displayforecast = (forecastData) => {
     // We grab the timestamp for the forecast and offset it with the timezone
     const fcDate = new Date((item.dt + timezoneOffset) * 1000);
     // We convert the date object into minutes from midnight
-    const minutes = (fcDate.getUTCHours() * 60) + fcDate.getUTCMinutes()
+    const minutes = (fcDate.getUTCHours() * 60) + fcDate.getUTCMinutes();
     // We filter for any forecast that has timestamp between 10:31 and 13:30 local time.
     // Since the forecasts comes in 3h blocks only one block per day can match
-    return ((minutes > (10.5 * 60)) && (minutes <= (13.5 * 60)))
+    return ((minutes > (10.5 * 60)) && (minutes <= (13.5 * 60)));
   })
 
   // Iterate through the forecast data and display each forecast item.

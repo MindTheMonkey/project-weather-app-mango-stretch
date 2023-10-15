@@ -8,10 +8,10 @@ const fetchWeatherReport = (reportType, city, country) => {
     APPID: weatherApp.apiKey,
     q: `${city},${country}`,
     units: weatherApp.units
-  }
+  };
   // We convert our parameters into a string
-  const queryString = buildQueryString(params)
-  const apiCollection = ["weather","forecast"].includes(reportType) ? reportType : false
+  const queryString = buildQueryString(params);
+  const apiCollection = ["weather","forecast"].includes(reportType) ? reportType : false;
   if (!apiCollection) {
     console.log("Incorrect report type");
     return Promise.reject("Incorrect report type");
@@ -30,13 +30,13 @@ const fetchWeatherReport = (reportType, city, country) => {
       return response.json();
     })
     .then((data) => {
-      return data
+      return data;
     })
     .catch((error) => {
       console.error("Fetching data failed", error);
       return false;
     });
-}
+};
 
 const fetchWeatherData = async (city, country) => {
   // We run both fetch calls concurrently and wait for them to both complete
