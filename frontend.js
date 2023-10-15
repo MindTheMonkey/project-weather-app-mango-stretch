@@ -27,12 +27,16 @@ const displayWeather = (weatherData) => {
       body.classList.add ("sunny")
       iconElement.src = "icons/sunny.png"
       todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`
+    } else {
+      body.classList.add("unknown")
+      icon.src = ""
+      description.innerHTML = `We are sorry, we cannot provide you with information on the weather in ${weatherData.city}!`
     }
   }
   statusElement.innerHTML = weatherStatus;
-  sunriseElement.innerHTML = `Sunrise is at: ${sunriseTime}`;
-  sunsetElement.innerHTML = `Sunset is at: ${sunsetTime}`;
-  temperatureElement.innerHTML = temperatureCelsius;
+  sunriseElement.innerHTML = `sunrise ${sunriseTime}`;
+  sunsetElement.innerHTML = `sunset ${sunsetTime}`;
+  temperatureElement.innerHTML = `${temperatureCelsius}°C`;
 
 
   weatherStatusToday(weatherStatus);
