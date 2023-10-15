@@ -11,7 +11,25 @@ const displayWeather = (weatherData) => {
   const sunriseTime = convertTimestampToTime(weatherData.current.sys.sunrise, timezoneOffset);
   const sunsetTime = convertTimestampToTime(weatherData.current.sys.sunset, timezoneOffset);
   const temperatureCelsius = Math.round(weatherData.current.main.temp);
-  const weatherStatus = weatherData.current.weather[0].main.toLowerCase();
+  const weatherStatus = weatherData.current.weather[0].main;
+  const icon = document.getElementById ("icon")
+  const todaysDescription = document.getElementById ("todaysDescription")
+  const weatherStatusToday = (weatherStatus) => {
+    const body = document.getElementById("body");
+    body.classList.remove(...body.classList)
+    if (weatherStatus === "Clouds") {
+      body.classList.add ("cloudy")
+      icon.src = ""
+      todaysDescription.innerHTML = `Light a fire and get cosy. ${weatherData.city} is looking grey today.`
+    } else if (weatherStatus === "Rain") {
+      body.classList.add ("rainy")
+      todaysDescription.innerHTML = `Don't forget your umbrella. It's wet in ${weatherData.city} today.`
+    } else if (weatherStatus === "Clear") {
+      body.classList.add ("sunny")
+      icon.src = ""
+      todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`
+    }
+  }
 
   // Example data just to render something
   weatherContainer.innerHTML = `
