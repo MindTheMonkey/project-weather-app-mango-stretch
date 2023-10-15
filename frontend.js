@@ -38,10 +38,24 @@ const displayforecast = (forecastData) => {
     return;
   }
 
+  const forecastContainer = document.getElementById("forecast");
+
   // We grab the timezone offset from the data and declare a const
   const timezoneOffset = forecastData.city.timezone;
-  // We connect forecastContainer to the DomObject with the id "forecast".
-  const forecastContainer = document.getElementById("forecast");
+
+  const getWeekdayShort = (timestamp) => {
+    const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const day = new Date(timestamp);
+    return weekday[day.getUTCDay()];
+  }
+
+  const isToday = (timestamp, timezoneOffset) => {
+    const currentTime = new Date().getTime();
+    const today = new Date(currentTime + (timezoneOffset * 1000));
+    const date = new Date(timestamp);
+
+    return (date.getUTCDate() === today.getUTCDate()) && (date.getUTCMonth() === today.getUTCMonth()) && (date.getUTCFullYear() === today.getUTCFullYear());
+  }
 
   // Clear any existing content in the forecast container.
   forecastContainer.innerHTML = "";
@@ -49,29 +63,35 @@ const displayforecast = (forecastData) => {
   // We only want to grab the weather forcast closest to midday every day
   const filteredForecast = forecastData.list.filter((item) => {
     // We grab the timestamp for the forecast and offset it with the timezone
-    const fcDate = new Date((item.dt + forecastData.city.timezone) * 1000);
+    const fcDate = new Date((item.dt + timezoneOffset) * 1000);
     // We convert the date object into minutes from midnight
     const minutes = (fcDate.getUTCHours() * 60) + fcDate.getUTCMinutes()
     // We filter for any forecast that has timestamp between 10:31 and 13:30 local time.
     // Since the forecasts comes in 3h blocks only one block per day can match
     return ((minutes > (10.5 * 60)) && (minutes <= (13.5 * 60)))
   })
-  console.log(forecastData.list);
 
   // Iterate through the forecast data and display each forecast item.
   filteredForecast.forEach((forecast) => {
-    const day = convertTimestampToDate(forecast.dt, timezoneOffset);
+    const timestamp = (forecast.dt + timezoneOffset) * 1000;
+    if(isToday(timestamp, timezoneOffset)) return;
+    const day = getWeekdayShort(timestamp);
     const temperature = Math.round(forecast.main.temp);
-    const forecastDescription = forecast.weather[0].description;
 
-    const forecastItem = document.createElement("div");
-    forecastItem.classList.add("forecast-item");
-    forecastItem.innerHTML = `
-      <p>Day: ${day}</p>
-      <p>Temperature: ${temperature} °C</p>
-      <p>Forecast: ${forecastDescription}</p>
-    `;
+    const forecastRow = document.createElement("div");
+    const forecastWeekday = document.createElement("p");
+    const forecastTemperature = document.createElement("p");
 
-    forecastContainer.appendChild(forecastItem);
+    forecastRow.classList.add("forecast-row");
+    forecastTemperature.classList.add("forecast-temperature");
+    forecastWeekday.classList.add("forecast-weekday");
+
+    forecastTemperature.innerHTML = `${temperature} ${weatherApp.units === "metric" ? "°C" : "°F" }`;
+    forecastWeekday.innerHTML = day;
+
+    forecastRow.appendChild(forecastWeekday);
+    forecastRow.appendChild(forecastTemperature);
+
+    forecastContainer.appendChild(forecastRow);
   });
 }
