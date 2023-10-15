@@ -21,7 +21,7 @@ const weatherApp = {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetchWeatherData("Miami", "USA")
+  fetchWeatherData("Stockholm", "Sweden")
     .then((data) => {
       weatherApp.data = data;
       displayWeather(data);

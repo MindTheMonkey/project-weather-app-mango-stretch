@@ -17,20 +17,21 @@ const displayWeather = (weatherData) => {
     body.classList.remove(...body.classList)
     if (weatherStatus === "Clouds") {
       body.classList.add ("cloudy")
-      icon.src = ""
+      iconElement.src = "icons/cloud.png"
       todaysDescription.innerHTML = `Light a fire and get cosy. ${weatherData.city} is looking grey today.`
     } else if (weatherStatus === "Rain") {
       body.classList.add ("rainy")
+      iconElement.src = "icons/rain.png"
       todaysDescription.innerHTML = `Don't forget your umbrella. It's wet in ${weatherData.city} today.`
     } else if (weatherStatus === "Clear") {
       body.classList.add ("sunny")
-      icon.src = ""
+      iconElement.src = "icons/sunny.png"
       todaysDescription.innerHTML = `Get your sunnies on. ${weatherData.city} is looking rather great today.`
     }
   }
   statusElement.innerHTML = weatherStatus;
   sunriseElement.innerHTML = `Sunrise is at: ${sunriseTime}`;
-  sunsetElement.innerHTML = sunsetTime;
+  sunsetElement.innerHTML = `Sunset is at: ${sunsetTime}`;
   temperatureElement.innerHTML = temperatureCelsius;
 
 
