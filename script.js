@@ -11,6 +11,7 @@ const body = document.getElementById("body");
 const searchForm = document.getElementById("searchForm");
 const searchText = document.getElementById("searchText");
 const searchMessage = document.getElementById("searchMessage");
+const locationButton = document.getElementById("locationButton");
 
 // We save our config settings in the weatherApp object
 const weatherApp = {
@@ -21,8 +22,29 @@ const weatherApp = {
   data: {}
 };
 
+const displayUserLocation = (position) => {
+  const { latitude, longitude } = position.coords;
+  fetchWeatherData(latitude, longitude)
+  .then((data) => {
+    if (data.success) {
+      weatherApp.data = data;
+      displayWeather(data);
+      displayforecast(data.forecast); // Display the forecast data
+    }
+  });
+}
+
+const getUserLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(displayUserLocation);
+  } else {
+    console.log("Cant get user location");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  searchLocation("Stockholm, Sweden")
+  // Lets load default place
+  searchLocation("Oslo, Norway")
     .then((data) => {
       if (data.success) {
         weatherApp.data = data;
@@ -30,6 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
         displayforecast(data.forecast); // Display the forecast data
       }
     });
+});
+
+locationButton.addEventListener("click", function () {
+  // Lets try and get user location and display that
+  getUserLocation();
 });
 
 searchForm.addEventListener("submit", function (event) {
@@ -43,3 +70,5 @@ searchForm.addEventListener("submit", function (event) {
       }
     });
 });
+
+
