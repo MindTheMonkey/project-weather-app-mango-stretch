@@ -46,7 +46,7 @@ const getCoordinates = (searchQuery) => {
     limit: 1
   }
   const queryString = buildQueryString(params);
-  const url = `http://api.openweathermap.org/geo/1.0/direct?${queryString}`;
+  const url = `https://api.openweathermap.org/geo/1.0/direct?${queryString}`;
    return fetch(url)
     .then((response) => {
       if (!response.ok) {
